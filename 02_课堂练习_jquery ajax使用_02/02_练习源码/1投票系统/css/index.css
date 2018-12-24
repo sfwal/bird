@@ -1,0 +1,8 @@
+.third {
+	width: 320px;
+	float: left;
+}
+
+#result {
+	clear: both;
+}

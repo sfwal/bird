@@ -1,0 +1,1 @@
+$(function() {		$('li').hide().each(function(index) {          // Hide list items    $(this).delay(450 * index).fadeIn(1600);     // Then fade them in  });	  $('li').on('click', function() {    $(this).animate({      opacity: 0.0,      paddingLeft: '+=80'    }, 500, function() {      $(this).remove();    });  });});

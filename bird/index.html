@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			html, body{
+				height: 100%;
+			}
+			
+			/*欢迎页面, 小鸟翅膀变化动画*/
+			@-webkit-keyframes fly {
+				0% {
+					background: url(img/bird0.png);
+				}
+				100% {
+					background: url(img/bird1.png);
+				}
+			}
+			
+			/*欢迎页面顶部logo上下变化动画*/
+			@-webkit-keyframes headMove {
+				0% {
+					transform: translateY(0);
+				}
+				100% {
+					transform: translateY(30px);
+				}
+			}
+			
+			
+			#wrap {
+				width: 100%;
+				height: 100%;
+				background: url(img/bg.jpg);
+				background-size: 100% 100%;
+				position: relative;
+				overflow: hidden;
+				margin: 0 auto;
+			}
+			
+			#head {
+				position: absolute;
+				left: 13%;
+				top: 23%;
+				animation: headMove 1s linear infinite;
+				animation-direction: alternate;
+			}
+			
+			#head span {
+				background: url(img/bird0.png);
+				background-size: 100% 100%;
+				position: absolute;
+				right: 0;
+				top: 22%;
+				width: 17%;
+				height: 33%;
+				animation: fly 0.5s linear infinite;
+				animation-direction: alternate;
+			}
+			
+			#menu {
+				position: absolute;
+				left: 37%;
+				top: 60%;
+				z-index: 1000;
+			}
+			
+			#score {
+				position: absolute;
+				left: 48%;
+				top: 40px;
+				z-index: 3;
+			}
+			
+			#slider {
+				width: 100%;
+				position: absolute;
+				left: 0;
+				height: 2.5%;
+				top: 88.2%;
+			}
+			
+			#slider_img {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				overflow: hidden;
+			}
+			
+			#slider img {
+				float: left;
+				width: 320px;
+				height: 100%;
+			}
+			
+			#bird {
+				position: absolute;
+				left: 30px;
+				top: 25%;
+				display: none;
+			}
+			
+			#ductWrap {
+				width: 100%;
+				height: 88%;
+				margin: 0 auto;
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: none;
+				overflow: hidden;
+			}
+			
+			#ductWrap .ductSmall {
+				position: absolute;
+				top: 0;
+				width: 62px;
+				height: 100%;
+				
+			}
+			
+			.duct_up {
+				background: url(img/up_mod.png) repeat-y;
+				width: 100%;
+				height: 30%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			.duct_up img {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+			}
+			
+			.duct_down {
+				background: url(img/down_mod.png) repeat-y;
+				height: 45%;
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+			}
+			
+			.duct_down img {
+				position: absolute;
+				top: 0;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<!--容器div-->
+		<div id="wrap">
+			<!--顶部logo部分div-->
+			<div id="head">
+				<!--logo-->
+				<img src="img/head.jpg" />
+				<!--小鸟-->
+				<span id=""></span>
+			</div>
+			<!--start按钮部分-->
+			<div id="menu">
+				<img src="img/start.jpg" />
+			</div>
+			<!--计分部分-->
+			<div id="score">
+				<img src="img/0.jpg" />
+			</div>
+			<!--底部草坪部分-->
+			<div id="slider">
+				<div id="slider_img">
+					<img src="img/banner.jpg" />
+					<img src="img/banner.jpg" />
+				</div>
+			</div>
+
+			<!--游戏界面小鸟-->
+			<img src="img/down_bird0.png" id="bird" />
+			<!--游戏界面-游戏区域(作为柱子容器div)-->
+			<div id="ductWrap">
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		// 获取标签
+		var oBird = document.getElementById("bird");
+		var oMenu = document.getElementById("menu");
+		var oSlider = document.getElementById("slider");
+		var oSliderImg = document.getElementById("slider_img");
+		var oHead = document.getElementById("head");
+		var oDuctWrap = document.getElementById("ductWrap");
+		var oScore = document.getElementById("score");
+		// 保存草坪滚动计时器对象
+		var sliderTimer = null;
+		// 保存小鸟向下落地的计时器对象
+		var birdTimer = null;
+		// 创建柱子的计时器对象
+		var ductCreateTimer = null;
+		//记录分数
+		var scoreNum = 0; 
+		
+		// 设置草坪容器总宽度(不是可视草坪区域的宽度哦)
+		oSliderImg.style.width = oSliderImg.children[0].offsetWidth * 2 + "px";
+		
+		// 草坪计时器对象
+		sliderTimer = setInterval(function() {
+
+				// 当草坪容器的一半在屏幕的左外边了, 则立刻把草坪容器div的left设置为0, 重新走一遍, 就实现了草坪无限滚动的效果
+				if(oSliderImg.offsetLeft <= -oSliderImg.offsetWidth / 2) {
+					oSliderImg.style.left = "0";
+				} else {
+					// 每隔20毫秒移动1像素
+					oSliderImg.style.left = oSliderImg.offsetLeft - 1 + "px";
+				}
+			}, 20)
+		
+		//start按钮点击事件
+		oMenu.onclick = function(e) {
+			var e = e || window.event;
+			e.cancelBubble = true;
+			// 隐藏欢迎界面
+			oHead.style.display = "none";
+			this.style.display = "none";
+			oBird.style.display = "block";
+			oDuctWrap.style.display = "block";
+			//鸟动
+			birdMove();
+			// 创建柱子容器, 并柱子容器动
+			ductMove();
+		}
+
+		function ductMove() {
+			//	每三秒创建一个柱子容器
+			ductCreateTimer = setInterval(function() {
+
+				var ductSmallDiv = document.createElement("div");
+				ductSmallDiv.setAttribute("class", "ductSmall");
+				//创建ductSmallDiv的子节点
+				creatDuctChild(ductSmallDiv);
+				oDuctWrap.appendChild(ductSmallDiv);
+				//让分数只加一次
+				ductSmallDiv.add = true;
+
+				//自定义属性，记录距离左侧的距离
+				ductSmallDiv.theLeft = 300;
+				ductSmallDiv.style.left = ductSmallDiv.theLeft + "px";
+				// 给这个柱子容器扩展自定义属性, 保存它的移动的计时器对象
+				ductSmallDiv.moveTimer = setInterval(function() {
+					ductSmallDiv.theLeft -= 2; 
+					// 当柱子容器已经移动到左边屏幕外了, 停下它的计时器, 然后移除这个柱子容器
+					if(ductSmallDiv.theLeft <= -62) {
+						
+						clearInterval(ductSmallDiv.moveTimer);
+						oDuctWrap.removeChild(ductSmallDiv);
+						
+						// 判断如果柱子容器的left值小于小鸟所在的left, 说明小鸟顺利通过了柱子容器, 并且为了只计算一次, 判断柱子容器的add属性是否为true, 然后调用改变分数的方法.
+					} else if(ductSmallDiv.theLeft < -32) {
+						if(ductSmallDiv.add == true) {
+							changeScore();
+							ductSmallDiv.add = false;
+						}
+					}
+					
+					// 设置柱子容器的位置
+					ductSmallDiv.style.left = ductSmallDiv.theLeft + "px";
+				}, 30);
+			}, 3000);
+		}
+
+		// 改变分数的方法
+		function changeScore() {
+			scoreNum += 1; // 分数加1
+			oScore.innerHTML = ""; // 清空原来的图片分数
+			
+			// 重新进行分数图片的拼接
+			var scoreStr = String(scoreNum);
+			for(var i = 0; i < scoreStr.length; i++) {
+				var img = document.createElement("img");
+				img.src = "img/" + scoreStr[i] + ".jpg";
+				oScore.appendChild(img);
+			}
+		}
+
+		// 创建柱子里上下的管道图片
+		function creatDuctChild(theDuctSmall) {
+			// 顶部管道随机高度注意是百分比
+			var upHeigth = randomNum(15, 50);
+			// 创建顶部管道div
+			var oDuctUp = document.createElement("div");
+			oDuctUp.setAttribute("class", "duct_up");
+			oDuctUp.style.height = upHeigth + "%";
+			// 创建图片并赋予上去
+			var upImg = document.createElement("img");
+			upImg.src = "img/up_pipe.png";
+			oDuctUp.appendChild(upImg);
+			
+			// 创建底部管道div
+			var oDuctDown = document.createElement("div");
+			oDuctDown.setAttribute("class", "duct_down");
+			// 利用剩下的高度百分比 减去上边那个, 就是下面管道的百分比高度
+			oDuctDown.style.height = (75 - upHeigth) + "%";
+
+			// 创建底部图片标签
+			var downImg = document.createElement("img");
+			downImg.src = "img/down_pipe.png";
+			oDuctDown.appendChild(downImg);
+
+			// 添加到相应位置
+			theDuctSmall.appendChild(oDuctUp);
+			theDuctSmall.appendChild(oDuctDown);
+		}
+
+		// 封装随机数方法
+		function randomNum(min, max) {
+			return Math.floor(Math.random() * (max - min + 1) + min);
+		}
+
+		// 鸟移动方法
+		function birdMove() {
+			// 鸟速度的初值
+			oBird.speed = 0; 
+			// 鸟移动的计时器对象
+			birdTimer = setInterval(function() {
+				// 鸟的速度持续增加
+				oBird.speed += 0.5;
+				if(oBird.speed >= 6) {
+					oBird.speed = 6;
+				}
+				//速度小于零 鸟向上动 
+				if(oBird.speed < 0) {
+					oBird.src = "img/up_bird0.png";
+				} else {
+					//速度大于零 鸟向下动 
+					oBird.src = "img/down_bird0.png";
+				}
+				
+				// 获取草坪以上的高度
+				var ductWrapH = oDuctWrap.offsetHeight - oSlider.offsetHeight * 2; // *2是因为有误差
+				
+				
+				//上下 碰撞检测
+				if(Math.abs(ductWrapH - oBird.offsetTop) < Math.abs(oBird.speed)) {
+					clearTimer();
+					gameOver();
+				} else if(Math.abs(0 - oBird.offsetTop) < Math.abs(oBird.speed)) {
+					clearTimer();
+					gameOver();
+				} else {
+					oBird.style.top = oBird.offsetTop + oBird.speed + "px";
+				}
+				
+				//鸟与柱子的碰撞检测
+				var ductSmalls = oDuctWrap.children;
+				for (var i = 0; i < ductSmalls.length; i++) {
+					var upDownSmall = ductSmalls[i].children;
+					for (var j = 0; j < upDownSmall.length; j++) {
+						var isTouch = theTouch(oBird,upDownSmall[j]);
+						
+						if (isTouch) {
+							//清除所有定时器
+							clearTimer();
+							gameOver();
+						}
+					}
+				}
+			}, 30)
+		}
+		
+		
+		
+		//fixedDiv固定的Div oBoxB系列
+		//moveDiv移动的Div  oBoxA
+		// 检测碰撞
+		function theTouch(fixedDiv, moveDiv) {
+			//获取moveDiv的高宽
+			var moveW = moveDiv.offsetWidth;
+			var moveH = moveDiv.offsetHeight;
+			//获取moveDiv的位置
+			var moveL = moveDiv.parentNode.offsetLeft;
+			var moveT = moveDiv.offsetTop;
+			//获取fixedDiv的宽高
+			var fixedW = fixedDiv.offsetWidth;
+			var fixedH = fixedDiv.offsetHeight;
+			//获取fixedDiv的位置
+			var fixedL = fixedDiv.offsetLeft;
+			var fixedT = fixedDiv.offsetTop;
+
+			var leftType = moveL + moveW >= fixedL;
+			var rightType = fixedL + fixedW >= moveL;
+			var topType = moveT + moveH >= fixedT;
+			var bottomType = fixedT + fixedH >= moveT;
+
+			return leftType && rightType && topType && bottomType ;
+
+		}
+
+		//清定所有计时器
+		function clearTimer () {
+			var timer = setTimeout(function () {
+				for (var i = 1; i < timer; i++) {
+					clearInterval(i);
+				}
+			},0)
+		}
+
+		// 鼠标点击事件
+		document.onclick = function() {
+			oBird.speed = -7;
+			return false;
+		}
+
+		// 游戏结束调用方法
+		function gameOver() {
+			//延时执行某段代码
+			setTimeout(function() {
+				alert("GameOver");
+			}, 30)
+		}
+	</script>
+
+</html>

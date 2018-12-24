@@ -1,0 +1,23 @@
+#list {
+	margin: 0 auto;	
+	width: 320px;
+	border: 1px solid #666;
+}
+
+.item {
+	height: 200px;
+	position: relative;
+}
+
+.item img {
+	width: 100%;
+}
+
+.title {  
+ 	position: absolute;
+ 	top: 50%;
+ 	text-align: center;
+ 	color: #fff;
+ 	font-size: 20px;
+ 	transform: translateY(-50%);
+}

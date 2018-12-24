@@ -1,0 +1,16 @@
+需要哪些参数
+
+事件trigger：点击click 鼠标放上去 mouseover（click）
+动画效果effact：渐隐渐现 fade  向左滚动 left  向上滚动 top（fade）
+是否自动播放autoplay：false不自动播放，true自动播放（false）
+自动播放间隔intertime：毫秒（1000）
+切换效果的速度speed：毫秒（500）
+title的选中样式currclass：“on”（"on"）
+默认显示第几个选项卡defaultindex：选项卡的下标（0）
+
+选项卡标题包裹Class  titcell:（“.hd”）
+选项卡标题单个对象Class  tittag:（“a”）
+
+选项卡内容包裹Class maincell：（“.bd”）
+选项卡内容Class  maintag ：（“.con”）
+

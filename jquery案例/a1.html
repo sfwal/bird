@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body{height: 3000px;}
+		*{padding: 0;margin: 0;list-style: none;}
+		.slide{width: 300px;height: 400px;position: relative;margin:50px auto;overflow: hidden;}
+		.slide li{width: 300px;height: 400px;float: left;}
+		.slide li:nth-child(1){background: #f00;}
+		.slide li:nth-child(2){background: #ccc;}
+		.slide li:nth-child(3){background: #00f;}
+		.slide li:nth-child(4){background: #0f0;}
+		.prev,.next{position: absolute;width: 20px;height: 48px;display: block;top: 50%;margin-top: -24px;text-align: center;font-size: 20px;color: #fff;line-height: 48px;font-family: "宋体";background: rgba(0,0,0,0.7);text-decoration: none;border: 0;}
+		.prev[disabled="disabled"],.next[disabled="disabled"]{background: rgba(0,0,0,0.3);}
+		.prev{left: 0;}
+		.next{right: 0;}
+		.num{position: absolute;width: 300px;bottom: 20px;text-align: center;}
+		.num a{display: inline-block;width: 5px;height: 4px;background: #000;}
+		.num a.on{background: #fff;}
+		.gotop{width: 40px;height: 40px;background: #f00;position: fixed;right: 10px;bottom: 10%;cursor:pointer;display: none;}
+	</style>
+</head>
+<body>
+	<div class="slide">
+		<ul class="slide_con">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<div class="slide_btn">
+			<button href="javascript:;" class="prev">&lt;</button>
+			<button href="javascript:;" class="next">&gt;</button>
+		</div>
+		<div class="num"></div>
+	</div>
+	<div class="gotop"></div>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var liW = $('.slide_con').find('li').eq(0).width();
+			var len = $('.slide_con').find('li').length;
+			var liH = $('.slide_con').find('li').eq(0).height();
+			$('.slide_con').width(liW*len).height(liH).css("position","absolute");
+			var j = 0;
+			for(var i=0;i<len;i++){
+				$('.num').append("<a></a>");
+			}
+			$('.num').find('a').first().addClass("on");
+
+			function move(){
+				$('.slide_con').stop().animate({left:-j*liW},500);
+				if(j==len-1){
+					$(".next").attr('disabled',"disabled");
+				}else if(j==0){
+					$(".prev").attr('disabled',"disabled");
+				}else{
+					$('.next').removeAttr('disabled');
+					$('.prev').removeAttr('disabled');
+				}
+				$('.num').find('a').eq(j).addClass('on').siblings().removeClass("on");
+			}
+
+			$('.next').click(function(){
+				if(j<len-1){
+					j++
+				}
+				move();
+			})
+			$('.prev').click(function(){
+				if(j>0){
+					j--;
+				}
+				move();
+			})
+			$('.num').find('a').click(function(){
+				j=$(this).index();
+				move();
+			})
+
+			$(window).scroll(function(){
+				if($(window).scrollTop()>100){
+					$('.gotop').show();
+				}else{
+					$('.gotop').hide();
+				}
+			})
+			$('.gotop').click(function(){
+				$('html,body').animate({scrollTop:"0"},500);
+			})
+		})
+	</script>
+</body>
+</html>

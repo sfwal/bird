@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/jquery.min.js"></script>
+	<style>
+		.box{width: 500px; height: 500px;border: 1px solid #f00;}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+
+	<a href="javascript:;" class="btn">点击试下</a>
+
+	<script>
+		$(function(){
+			//显示和隐藏 hide() show()  毫秒 slow fast
+			$('.btn').click(function(){
+				$('.box').toggle(1000);
+			})
+		})
+	</script>
+</body>
+</html>

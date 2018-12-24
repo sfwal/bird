@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{padding: 0;margin: 0;}
+		.box{width: 600px;margin: 0 auto;}
+		.box1,.box2,.box3{display: none;}
+		button:focus{outline: none;}
+		input:focus{outline: none;}
+		.btn1,.btn2,.btn3{background: none; width: 100%;border: 1px solid #ddd;height: 40px; line-height: 40px;position: relative;}
+		.btn1 h3,.btn2 h3,.btn3 h3{text-align: left;font-size: 15px;color:#444;font-weight: normal;padding-left: 15px;}
+		.btn1:after{content: ">";position: absolute;right: 10px;height: 40px;line-height: 40px;font-family: "宋体";top: 0;font-size: 24px;color: #888;}
+		.btn1.on:after{content: "<";}
+
+
+	</style>
+</head>
+<body>
+	<button class="demo" disabled="disabled">点击试试点击试试点击试试点击试试点击试试点击试试点击试试</button>
+
+	<div class="box">
+		<button class="btn1">
+			<h3>请选择省份 <span></span></h3>
+		</button>
+		<div class="box1">
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+		</div>
+		<button class="btn2" disabled="disabled">
+			<h3>请选择市</h3>
+		</button>
+		<div class="box2">
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+		</div>
+		<button class="btn3" disabled="disabled">
+			<h3>请选择区</h3>
+		</button>
+		<div class="box3">
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+			<h4>湖北</h4>
+		</div>
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script>
+	    //var flag=false;
+		$(function(){
+			$('.demo').click(function(){
+				alert('.......')
+			})
+			$('.btn1').click(function(){
+				$('.box1').stop().slideToggle();
+				$(this).toggleClass('on');
+				
+			})
+			$('.box1 h4').click(function(){
+				//console.log()
+				$('.btn1').find("span").html($(this).html());
+				$('.btn2').removeAttr('disabled');
+			})
+			$('.btn2').click(function(){
+				$('.box2').stop().slideToggle();
+			})
+			$('.btn3').click(function(){
+				$('.box3').stop().slideToggle();
+			})
+		})
+	</script>
+</body>
+</html>

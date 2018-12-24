@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.box{width: 300px;height: 300px;border: 1px solid #000;}
+		p{width: 200px; height: 200px;border: 1px solid #f00;}
+		a{display: block;width: 100px; height: 100px;border: 1px solid #00f;}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p>
+			<a href="javascript:;">请点击</a>
+		</p>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.box').click(function(e){
+				console.log(e.target);
+				if($(e.target).is("a")){
+					alert(".....");
+				}
+			})
+		})
+	</script>
+</body>
+</html>

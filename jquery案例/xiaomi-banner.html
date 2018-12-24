@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小米</title>
+	<style type="text/css">
+		*{padding: 0;margin:0;list-style: none;}
+		.banner{width: 1226px; height: 460px;position: relative;margin: 100px auto;}
+		.banner_imgs a{display: block; width: 1226px; height: 460px; position: absolute;}
+		.banner_imgs img{width: 1226px; height: 460px;}
+		.banner_btn a.btn-prev,.banner_btn a.btn-next{display: block;width: 40px;height: 70px;position: absolute;top: 50%;margin-top: -35px;text-decoration: none;color:#ccc;font-size: 36px;font-family: "宋体";line-height: 70px;text-align: center;}
+		.banner_btn a.btn-prev{left: 0;border-radius:0 4px 4px 0;}
+		.banner_btn a.btn-next{right:0;border-radius:4px 0 0 4px;}
+		.banner_btn a:hover{background: rgba(0,0,0,0.5);color: #fff;}
+		.banner_num{position: absolute;right: 0;bottom: 20px;}
+		.banner_num li{width: 8px;height: 8px;background: #ccc; float: left;border-radius: 50%;margin-right: 15px;cursor: pointer;border: 1px solid rgba(0,0,0,0.4);}
+		.banner_num li.on{background: #fff;}
+
+		
+	</style>
+</head>
+<body>
+	<div class="banner">
+		<!-- 轮播图 -->
+		<div class="banner_imgs">
+			<a href="##"><img src="images/banner1.jpg" /></a>
+			<a href="##"><img src="images/banner2.jpg" /></a>
+			<a href="##"><img src="images/banner3.jpg" /></a>
+			<a href="##"><img src="images/banner4.jpg" /></a>
+			<a href="##"><img src="images/banner5.jpg" /></a>
+			<a href="##"><img src="images/banner6.jpg" /></a>
+			<a href="##"><img src="images/banner7.jpg" /></a>
+		</div>
+		<!-- 用来存放小圆点 -->
+		<ul class="banner_num">
+		</ul>
+		<!-- 用来放左右两个按钮的 -->
+		<div class="banner_btn">
+			<a href="javascript:;" class="btn-prev">&lt;</a>
+			<a href="javascript:;" class="btn-next">&gt;</a>
+		</div>
+	</div>
+	
+
+	<script src="js/jquery.min.js"></script>
+	<script>
+		$(function(){
+			var speed = 3000;
+			// 把第一张显示，其他的隐藏
+			$('.banner_imgs a').first().show().siblings().hide();
+			// 把小圆点添加至ul.banner_num中
+			for(var j=0;j<$('.banner_imgs a').length;j++){
+				$('.banner_num').append('<li></li>');
+			}
+			// 将小圆点的第一个给个class
+			$('.banner_num li').first().addClass('on');
+
+			var i = 0;
+			// 定义一个函数，
+			function banner(){
+				$('.banner_imgs a').eq(i).fadeIn(1000).siblings().fadeOut(1000);
+			}
+			//console.log($('.banner_imgs a').length);
+			$('.btn-prev').click(function(){
+				i--;
+				if(i<0){
+					i = $('.banner_imgs a').length - 1;
+				}
+				banner();
+				$('.banner_num li').eq(i).addClass("on").siblings().removeClass("on");
+			})
+
+			$('.btn-next').click(function(){
+				i++;
+				if(i>=$('.banner_imgs a').length){
+					i = 0
+				}
+				banner();
+				$('.banner_num li').eq(i).addClass("on").siblings().removeClass("on");
+			})
+			// 小圆点的事件
+			$('.banner_num li').click(function(){
+				//console.log($(this).index());
+				$('.banner_num li').eq($(this).index()).addClass("on").siblings().removeClass("on");
+				i = $(this).index();
+				banner();
+			})
+
+			//定时器
+			var timer = null;
+			timer = setInterval(function(){
+				i++;
+				if(i>=$('.banner_imgs a').length){
+					i = 0
+				}
+				banner();
+				$('.banner_num li').eq(i).addClass("on").siblings().removeClass("on");
+			},speed)
+
+			$('.banner').hover(function(){
+				clearInterval(timer);
+			},function(){
+				timer = setInterval(function(){
+					i++;
+					if(i>=$('.banner_imgs a').length){
+						i = 0
+					}
+					banner();
+					$('.banner_num li').eq(i).addClass("on").siblings().removeClass("on");
+				},speed)
+			})
+		})
+	</script>
+</body>
+</html>

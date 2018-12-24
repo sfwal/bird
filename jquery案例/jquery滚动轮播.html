@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{padding: 0;margin:0;list-style: none;}
+		body{height: 3000px;}
+		.slide{width: 300px;height: 400px;margin:50px auto;position: relative;overflow: hidden;}
+		.slide_con li{width: 300px;height: 400px;float: left;}
+		.slide_con li:nth-child(1){background: #0f0}
+		.slide_con li:nth-child(2){background: #f00}
+		.slide_con li:nth-child(3){background: #ccc}
+		.slide_con li:nth-child(4){background: #00f}
+		.slide_btn{display: none;}
+		.prev,.next{width: 20px;height: 48px;text-align: center;border: 0;position: absolute;line-height: 48px;color: #fff;font-size: 22px;font-family: "宋体";
+		background: rgba(0,0,0,0.8);top: 50%;margin-top: -24px;cursor: pointer;
+		}
+		.prev{left: 0;}
+		.next{right: 0;}
+		.prev[disabled="disabled"],.next[disabled="disabled"]{background: rgba(0,0,0,0.3);}
+		.slide_num{position: absolute;width: 300px;bottom: 20px;left: 0;text-align: center;}
+		.slide_num a{width: 20px;height: 5px;background: #000;display: inline-block;margin: 0 10px;cursor: pointer;}
+		.slide_num a.on{background: #fff;}
+		.goTop{width: 40px; height: 40px;background: #f00;position: fixed;right: 10px;bottom: 10%;cursor: pointer;display: none;}
+	</style>
+</head>
+<body>
+	<div class="slide">
+		<ul class="slide_con">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<div class="slide_btn">
+			<button class="prev">&lt;</button>
+			<button class="next">&gt;</button>
+		</div>
+		<div class="slide_num">
+		</div>
+	</div>
+
+	<div class="goTop"></div>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//获取li的宽度
+			var liW = $('.slide_con li').eq(0).width();
+			//获取li的个数
+			var len = $('.slide_con li').length;
+			//获取LI的高度
+			var liH = $('.slide_con li').eq(0).height();
+			var j = 0;
+			//UL的宽度 = li的宽度 * li的个数
+			$('.slide_con').width(liW*len).height(liH).css("position","absolute");
+
+			for(var i=0;i<len;i++){
+				$('.slide_num').append("<a></a>");
+			}		
+			$('.slide_num').find("a").first().addClass("on").siblings().removeClass("on");
+			$('.slide').hover(function(){
+				$('.slide_btn').toggle();
+			})
+
+			function move(){
+				console.log(j);
+				if(j==(len-1)){
+					$(".next").attr("disabled","disabled");
+				}else{
+					$(".next").removeAttr("disabled");
+				}
+				if(j==0){
+					$(".prev").attr("disabled","disabled");
+				}else{
+					$(".prev").removeAttr("disabled");
+				}
+				$('.slide_con').stop().animate({"left":-j*liW},500);
+				$('.slide_num').find("a").eq(j).addClass("on").siblings().removeClass("on");
+			}
+			$('.next').click(function(){
+				j++;
+				move();
+			})
+			$('.prev').attr("disabled","disabled");
+			$('.prev').click(function(){
+				j--;
+				move();
+			})
+			$('.slide_num').find("a").click(function(){
+				j=$(this).index();
+				move();
+			})
+
+			$(window).scroll(function(){
+				if($(window).scrollTop()>100){
+					$('.goTop').show();
+				}else{
+					$('.goTop').hide();
+				}
+			})
+			$('.goTop').click(function(){
+				$('html,body').animate({"scrollTop":0},400);
+			})
+		})
+	</script>
+</body>
+</html>

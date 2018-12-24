@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{padding: 0;margin:0;list-style: none;}
+		.slide{width: 300px;height: 400px;margin:50px auto;position: relative;overflow: hidden;}
+		.slide_con li{width: 300px;height: 400px;float: left;}
+		.slide_con li img{width: 300px;height: 400px;}
+		/*.slide_btn{display: none;}*/
+		.prev,.next{width: 20px;height: 48px;text-align: center;border: 0;position: absolute;line-height: 48px;color: #fff;font-size: 22px;font-family: "宋体";
+		background: rgba(0,0,0,0.8);top: 50%;margin-top: -24px;cursor: pointer;
+		}
+		.prev{left: 0;}
+		.next{right: 0;}
+		.prev[disabled="disabled"],.next[disabled="disabled"]{background: rgba(0,0,0,0.3);}
+		.slide_num{position: absolute;width: 300px;bottom: 20px;left: 0;text-align: center;}
+		.slide_num a{width: 20px;height: 5px;background: #000;display: inline-block;margin: 0 10px;cursor: pointer;}
+		.slide_num a.on{background: #fff;}
+	</style>
+</head>
+<body>
+	<div class="slide">
+		<ul class="slide_con">
+			<li><img src="images/banner1.jpg" /></li>
+			<li><img src="images/banner2.jpg" /></li>
+			<li><img src="images/banner3.jpg" /></li>
+			<li><img src="images/banner4.jpg" /></li>
+		</ul>
+		<div class="slide_btn">
+			<button class="prev">&lt;</button>
+			<button class="next">&gt;</button>
+		</div>
+		<div class="slide_num">
+		</div>
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script>
+		$(function(){
+			//把第一张轮播图复制一份，放到UL后面
+			var clone = $('.slide_con li').eq(0).clone();
+			console.log(clone);
+			$('.slide_con').append(clone);
+
+			var i = 0;
+			//重新定义UL的宽度 = li的宽度 * li的个数
+			var len = $('.slide_con').find("li").length;
+			var liW = $('.slide_con').find("li").eq(0).width();
+			var liH = $('.slide_con').find("li").eq(0).height();
+			$('.slide_con').width(liW*len).height(liH).css({"position":"absolute"});
+
+			for(var j=0;j<len-1;j++){
+				$('.slide_num').append("<a></a>");
+			}
+			$('.slide_num a').eq(0).addClass("on");
+			function move(){
+				if(i==len){
+					$('.slide_con').css({"left":0});
+					i = 1;
+				}
+				if(i==-1){
+					$('.slide_con').css({"left":-(len-1)*liW});
+					i = len-2;
+				}
+				$('.slide_con').stop().animate({"left":-i*liW},500);
+				if(i==len-1){
+					$('.slide_num a').eq(0).addClass("on").siblings().removeClass("on");
+				}else{
+					$('.slide_num a').eq(i).addClass("on").siblings().removeClass("on");
+				}
+				
+			}
+
+			$('.next').click(function(){
+				i++;
+				move();
+			})
+			$('.prev').click(function(){
+				i--;
+				move();
+			})
+		})
+	</script>
+</body>
+</html>

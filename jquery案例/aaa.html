@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="cart">
+		<div class="cart_hd">
+			<div class="hd1">
+				<input type="checkbox" name="" class="allcheck" /> <label>全选</label>
+			</div>
+			<div class="hd2">商品</div>
+			<div class="hd3">单价</div>
+			<div class="hd4">数量</div>
+			<div class="hd5">小计</div>
+			<div class="hd6">操作</div>
+		</div>
+		<div class="cart_bd">
+			<div class="shop">
+				<h3><input type="checkbox" name="" class="shopcheck" /> <label>车工官方旗舰店</label></h3>
+				<div class="shop_cart">
+					<div class="p1"><input type="checkbox" name="" class="goodcheck" /></div>
+					<div class="p2">TCL 65A950C 65英寸32核人工智能 HDR曲面超薄4K电视金属机身（枪</div>
+					<div class="p3 price">￥880</div>
+					<div class="p4"><a class="reduce">-</a><input type="number" name="" value="1"><a class="plus">+</a></div>
+					<div class="p5 sum_price">￥880</div>
+					<div class="p6"><p class="del">删除</p></div>
+				</div>
+			</div>
+			<div class="shop">
+				<h3><input type="checkbox" name="" class="shopcheck" /> <label>京东自营</label></h3>
+				<div class="shop_cart">
+					<div class="p1"><input type="checkbox" name="" class="goodcheck" /></div>
+					<div class="p2">TCL 65A950C 65英寸32核人工智能 HDR曲面超薄4K电视金属机身（枪</div>
+					<div class="p3 price">￥880</div>
+					<div class="p4"><a class="reduce">-</a><input type="number" name="" value="1"><a class="plus">+</a></div>
+					<div class="p5 sum_price">￥880</div>
+					<div class="p6"><p class="del">删除</p></div>
+				</div>
+				<div class="shop_cart">
+					<div class="p1"><input type="checkbox" name="" class="goodcheck" /></div>
+					<div class="p2">TCL 65A950C 65英寸32核人工智能 HDR曲面超薄4K电视金属机身（枪</div>
+					<div class="p3 price">￥880</div>
+					<div class="p4"><a class="reduce">-</a><input type="number" name="" value="1"><a class="plus">+</a></div>
+					<div class="p5 sum_price">￥880</div>
+					<div class="p6"><p class="del">删除</p></div>
+				</div>
+				<div class="shop_cart">
+					<div class="p1"><input type="checkbox" name="" class="goodcheck" /></div>
+					<div class="p2">TCL 65A950C 65英寸32核人工智能 HDR曲面超薄4K电视金属机身（枪</div>
+					<div class="p3 price">￥880</div>
+					<div class="p4"><a class="reduce">-</a><input type="number" name="" value="1"><a class="plus">+</a></div>
+					<div class="p5 sum_price">￥880</div>
+					<div class="p6"><p class="del">删除</p></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="cart_foot">
+			<div class="piece">已选商品<span id="goods_num">0</span></div>
+			<div class="money">共计<span id="total_txt">0</span></div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//全局全选与单个商品的关系
+			$('.allcheck').click(function(){
+				if($(this).is(":checked")){
+					$('.cart_bd').find("input[type='checkbox']").attr("checked","checked");
+				}else{
+					$('.cart_bd').find("input[type='checkbox']").removeAttr("checked");
+				}
+				totalMoney();
+			})
+			$(".goodcheck").each(function(){
+				$(this).click(function(){
+					if($(this).is(':checked')){
+						var num = 0;
+						$(".goodcheck").each(function(){
+							if($(this).is(':checked')){
+								num++
+							}
+						})
+						if(num == $(".goodcheck").length){
+							$('.allcheck').attr("checked","checked");
+						}
+					}else{
+						$('.allcheck').removeAttr("checked");
+					}
+					totalMoney();
+				})
+			})
+			//店铺选择与店铺商品和全选的关系
+			$('.shopcheck').each(function(){
+				$(this).click(function(){
+					if($(this).is(":checked")){
+						var num = 0;
+						$('.shopcheck').each(function(){
+							if($(this).is(":checked")){
+								num++
+							}
+						})
+						if(num == $('.shopcheck').length){
+							$('.allcheck').attr("checked","checked");
+						}
+						$(this).parents(".shop").find('.goodcheck').attr("checked","checked");
+					}else{
+						$('.allcheck').removeAttr("checked");
+						$(this).parents(".shop").find('.goodcheck').removeAttr("checked");
+					}
+					totalMoney();
+				})
+			})
+			$('.shop').each(function(){
+				var $this = $(this);
+				var $goodcheck = $(this).find('.goodcheck');
+				$goodcheck.each(function(){
+					$(this).click(function(){
+						if($(this).is(":checked")){
+							var num = 0;
+							$goodcheck.each(function(){
+								if($(this).is(":checked")){
+									num++;
+								}
+							})
+							if(num == $goodcheck.length){
+								$(this).parents('.shop').find('.shopcheck').attr("checked","checked");
+							}
+						}else{
+							$(this).parents('.shop').find('.shopcheck').removeAttr("checked");
+						}
+						totalMoney();
+					})
+				})
+			})
+
+			$('.plus').click(function(){
+				var count = parseInt($(this).prev("input").val())+1;
+				var price = $(this).parents('.shop_cart').find('.price');
+				var sum_price = $(this).parents('.shop_cart').find('.sum_price');
+				$(this).prev("input").val(count);
+				sum_price.html("￥"+(count*parseInt(price.html().substring(1))).toFixed(2));
+				if($(this).prev("input").val()>1){
+					$(this).parents('.p4').find('.reduce').removeAttr('disabled');
+				}
+				totalMoney();
+			})
+			$('.reduce').click(function(){
+				var count = parseInt($(this).next("input").val())-1;
+				var price = $(this).parents('.shop_cart').find('.price');
+				var sum_price = $(this).parents('.shop_cart').find('.sum_price');
+				$(this).next("input").val(count);
+				sum_price.html("￥"+(count*parseInt(price.html().substring(1))).toFixed(2));
+				if($(this).next("input").val() == 1){
+					$(this).attr('disabled','disabled');
+				}
+				totalMoney();
+			})
+
+			function totalMoney(){
+				var total_money = 0;
+				var total_num = 0;
+				$('.goodcheck').each(function(){
+					if($(this).is(":checked")){
+						var goodPrice = parseInt($(this).parents('.shop_cart').find('.sum_price').html().substring(1));
+						var goodNum = parseInt($(this).parents('.shop_cart').find("input[type='number']").val());
+						total_money += goodPrice;
+						total_num += goodNum;
+					}
+				})
+				$('#goods_num').html(total_num);
+				$('#total_txt').html(total_money);
+			}
+		})
+	</script>
+</body>
+</html>

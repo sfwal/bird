@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/jquery.min.js"></script>
+	<style type="text/css">
+		/*.box p:nth-child(odd){color: #f00;}*/
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p>Document1<a class="c"></a></p>
+		<p class="b">Document1<a></a></p>
+		<p>Document1<a></a></p>
+		<p>Document1<a></a></p>
+		<p class="a">Document2</p>
+		<p>Document3</p>
+		<p>Document4</p>
+		<p>Document5
+			<a></a>
+			<p></p>
+		</p>
+	</div>
+	<p>Document4</p>
+	<script type="text/javascript">
+		$(function(){
+			// eq(index)  筛选，index第几个  从0开始
+			//$('.box p:nth-child(2)').css("color","red");
+			//$('.box p:eq(1)').css("color","red");
+			//$('.box p:nth-of-type(2)').css("color","red");
+			// $('.box p').eq(1).css("color","red");
+			//first()  last() 第一个 最后一个
+			// $('.box p').first().css("color","red");
+
+			//$("p:has(a)").css("color","red");
+			// hasClass()这个元素是否拥有样式，返回是true false
+			// $("p").each(function(){
+			// 	if($(this).hasClass("a")){
+			// 		$(this).css("color","red");
+			// 	}
+			// })
+			//$(".box").is(':hideen').css("color","red");
+			//
+			//$("p:has(a)").css("color","red");
+			//$('p').has('a').css("color","red");
+			//
+			// $('p').not('.a').css("color","red")
+			//$('.box').find("p").css("color","red");
+			//
+			//$('p.a').prevUntil(".b").css("color","red");
+			//$('a.c').parentUntil(".box").css("color","red")
+			// $('p.a').siblings().css("color","red")
+			// 
+			// offsetLeft()//js获取位置
+			// offset().left  //jquery获取位置
+			// offset().top //jquery获取位置
+			// position().left //jquery获取相对于父元素的相对位置，本身是要加定位的
+			// position().top //jquery获取相对于父元素的相对位置，本身是要加定位的
+			// 
+			$('.box').height("500px");
+			
+			
+
+		})
+	</script>
+</body>
+</html>

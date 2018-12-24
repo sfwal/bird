@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>购物车</title>
+	<style type="text/css">
+		*{padding: 0;margin: 0;list-style: none;}
+		.cart{width: 990px;margin:50px auto;}
+		button:focus,input:focus{outline: none;}
+		.cart_hd{height: 40px;background: #f3f3f3;border: 1px solid #ddd;line-height: 40px;font-size: 14px; color:#666;}
+		.cart_hd .hd1{float: left;padding-left: 15px;width: 100px;}
+		.cart_hd .hd1 .all_check{position: relative;top: 2px;margin-right: 5px;}
+		.cart_hd .hd2{float: left;padding-left: 15px;width: 338px;}
+		.cart_hd .hd3{float: left;padding-left: 15px;width: 150px;}
+		.cart_hd .hd4{float: left;padding-left: 15px;width: 80px;}
+		.cart_hd .hd5{float: left;padding-left: 15px;width: 130px;}
+		.cart_hd .hd6{float: left;padding-left: 15px;width: 70px;}
+
+		.shop{margin-top:15px;}
+		.shop h4{height: 25px;border-bottom: 2px solid #ccc;font-weight: normal;color:#333;padding-left: 15px;font-size: 14px;line-height: 25px;}
+		.shop h4 .shop_check{position: relative;top: 2px; margin-right:5px;}
+		.cart_list{border: 1px solid #ddd;padding: 15px;height: 80px;}
+		.cart_list .p1{float: left;width: 30px;}
+		.cart_list .p2{float: left;width: 420px; height: 80px;}
+		.cart_list .p2 .goods_img{float: left;width: 80px;}
+		.cart_list .p2 .goods_txt{float: left;width: 250px;margin-left:15px;font-size: 12px; color: #666;line-height: 24px; }
+		.cart_list .p3{float: left;font-size: 12px; color: #000;width: 150px;line-height: 26px;}
+		.cart_list .p4{float: left;width: 115px;}
+		.cart_list .p4 button{width: 20px;height: 20px;border: 1px solid #ddd;background: none;cursor: pointer;}
+		.cart_list .p4 .goods_num{border: 1px solid #ddd;border-left:0;border-right:0;height: 19px;width: 35px; padding-left: 3px;}
+		.cart_list .p5{float: left;font-size: 12px; color: #000;width: 155px;line-height: 26px;}
+		.cart_list .p6{float: left;}
+		.cart_list .p6 a.del{color: #666; text-decoration: none;font-size: 12px;line-height: 26px;}
+		.cart_foot{height: 50px; border: 1px solid #ddd; margin-top:20px;line-height: 50px;}
+		.cart_foot .total_num{float: right;font-size: 14px; color: #666;padding: 0 20px;}
+		.cart_foot .total_price{float: right;font-size: 14px; color: #666;padding: 0 20px;}
+		.cart_foot button{float: right;width: 96px;height: 50px;background: #e54346;border: 0;text-align: center;font-size: 18px;color: #fff;}
+	</style>
+</head>
+<body>
+	<div class="cart">
+		<div class="cart_hd">
+			<div class="hd1"><input type="checkbox" name="" class="all_check"><label>全选</label></div>
+			<div class="hd2">商品</div>
+			<div class="hd3">单价</div>
+			<div class="hd4">数量</div>
+			<div class="hd5">小计</div>
+			<div class="hd6">操作</div>
+		</div>
+		<div class="cart_bd">
+			<div class="shop">
+				<h4><input type="checkbox" id="check" class="shop_check" name="">车工官方旗舰店</h4>
+				<div class="cart_list">
+					<div class="p1"><input type="checkbox" class="goods_check" name=""></div>
+					<div class="p2">
+						<div class="goods_img"><img src="http://placehold.it/80X80" /></div>
+						<div class="goods_txt">
+							嘉实多(Castrol)机油润滑油 极护磁护金嘉护银嘉护 磁护全合成 4L 5W-40 SN
+							</div>
+					</div>
+					<div class="p3 price">￥229.00</div>
+					<div class="p4"><button class="reduce">-</button><input type="number" name="" class="goods_num" value="1" /><button class="add">+</button></div>
+					<div class="p5 sum_price">￥229.00</div>
+					<div class="p6"><a href="javascript:;" class="del">删除</a></div>
+				</div>
+				<div class="cart_list">
+					<div class="p1"><input type="checkbox" class="goods_check" name=""></div>
+					<div class="p2">
+						<div class="goods_img"><img src="http://placehold.it/80X80" /></div>
+						<div class="goods_txt">
+							嘉实多(Castrol)机油润滑油 极护磁护金嘉护银嘉护 磁护全合成 4L 5W-40 SN
+							</div>
+					</div>
+					<div class="p3 price">￥229.00</div>
+					<div class="p4"><button class="reduce">-</button><input type="number" name="" class="goods_num" value="1" /><button class="add">+</button></div>
+					<div class="p5 sum_price">￥229.00</div>
+					<div class="p6"><a href="javascript:;" class="del">删除</a></div>
+				</div>
+			</div>
+
+			<div class="shop">
+				<h4><input type="checkbox" class="shop_check" name="">京东自营</h4>
+				<div class="cart_list">
+					<div class="p1"><input type="checkbox" class="goods_check" name=""></div>
+					<div class="p2">
+						<div class="goods_img"><img src="http://placehold.it/80X80" /></div>
+						<div class="goods_txt">
+							嘉实多(Castrol)机油润滑油 极护磁护金嘉护银嘉护 磁护全合成 4L 5W-40 SN
+							</div>
+					</div>
+					<div class="p3 price">￥229.00</div>
+					<div class="p4"><button class="reduce">-</button><input type="number" name="" class="goods_num" value="1" /><button class="add">+</button></div>
+					<div class="p5 sum_price">￥229.00</div>
+					<div class="p6"><a href="javascript:;" class="del">删除</a></div>
+				</div>
+				<div class="cart_list">
+					<div class="p1"><input type="checkbox" class="goods_check" name=""></div>
+					<div class="p2">
+						<div class="goods_img"><img src="http://placehold.it/80X80" /></div>
+						<div class="goods_txt">
+							嘉实多(Castrol)机油润滑油 极护磁护金嘉护银嘉护 磁护全合成 4L 5W-40 SN
+							</div>
+					</div>
+					<div class="p3 price">￥229.00</div>
+					<div class="p4"><button class="reduce">-</button><input type="number" name="" class="goods_num" value="1" /><button class="add">+</button></div>
+					<div class="p5 sum_price">￥229.00</div>
+					<div class="p6"><a href="javascript:;" class="del">删除</a></div>
+				</div>
+				<div class="cart_list">
+					<div class="p1"><input type="checkbox" class="goods_check" name=""></div>
+					<div class="p2">
+						<div class="goods_img"><img src="http://placehold.it/80X80" /></div>
+						<div class="goods_txt">
+							嘉实多(Castrol)机油润滑油 极护磁护金嘉护银嘉护 磁护全合成 4L 5W-40 SN
+							</div>
+					</div>
+					<div class="p3 price">￥229.00</div>
+					<div class="p4"><button class="reduce">-</button><input type="number" name="" class="goods_num" value="1" /><button class="add">+</button></div>
+					<div class="p5 sum_price">￥229.00</div>
+					<div class="p6"><a href="javascript:;" class="del">删除</a></div>
+				</div>
+				<div class="cart_list">
+					<div class="p1"><input type="checkbox" class="goods_check" name=""></div>
+					<div class="p2">
+						<div class="goods_img"><img src="http://placehold.it/80X80" /></div>
+						<div class="goods_txt">
+							嘉实多(Castrol)机油润滑油 极护磁护金嘉护银嘉护 磁护全合成 4L 5W-40 SN
+							</div>
+					</div>
+					<div class="p3 price">￥229.00</div>
+					<div class="p4"><button class="reduce">-</button><input type="number" name="" class="goods_num" value="1" /><button class="add">+</button></div>
+					<div class="p5 sum_price">￥229.00</div>
+					<div class="p6"><a href="javascript:;" class="del">删除</a></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="cart_foot">
+			<button>去结算</button>
+			<div class="total_price">总价：<span>￥0.00</span></div>
+			<div class="total_num">已选择<span>0</span>件商品</div>
+		</div>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script>
+		$(function(){
+			//全选框和商品选择框之间的关系
+			//当全选框选中时，下面所有的选择框都必须是选中状态
+			$('.all_check').click(function(){
+				if($(this).is(":checked")){
+					$('.cart_bd').find("input[type='checkbox']").attr("checked","checked");
+				}else{
+					$('.cart_bd').find("input[type='checkbox']").removeAttr("checked");
+				}
+				totalMoney();
+			})
+			//当点击商品前选择框时，判断时候商品选择框是否全部选中
+			//如果全部选中，全选选择框必须勾上
+			$('.goods_check').click(function(){
+				if($(this).is(":checked")){
+					var num = 0;
+					$('.goods_check').each(function(){
+						if($(this).is(":checked")){
+							num++;
+						}
+					})
+					if(num == $('.goods_check').length){
+						$('.all_check').attr("checked","checked");
+					}
+					totalMoney();
+					// for(var i=0;i<$('.goods_check').length;i++){
+					// 	if($('.goods_check').eq(i).is(":checked")){
+					// 		num++;
+					// 	}
+					// }
+				}else{
+					$('.all_check').removeAttr("checked");
+				}
+			})
+			//店铺选择框和店铺内商品选择框的关系
+			//当店铺的选择框选中时，店铺内商品前的选择框也都必须选中
+			$('.shop_check').click(function(){
+				if($(this).is(":checked")){
+					$(this).parents(".shop").find(".goods_check").attr("checked","checked");
+				}else{
+					$(this).parents(".shop").find(".goods_check").removeAttr("checked");
+				}
+				totalMoney();
+			})
+			//当店铺内商品选择框全部选中时，那么店铺的选择框也必须选中
+			$('.shop').each(function(){
+				var goodsCheck = $(this).find('.goods_check'); 
+				goodsCheck.click(function(){
+					var num = 0;
+					if($(this).is(":checked")){
+						for(var i=0;i<goodsCheck.length;i++){
+							if(goodsCheck.eq(i).is(":checked")){
+								num++;
+							}
+						}
+						if(goodsCheck.length == num){
+							$(this).parents(".shop").find('.shop_check').attr("checked","checked");
+						}
+					}else{
+						$(this).parents(".shop").find('.shop_check').removeAttr('checked');
+					}
+					totalMoney();
+				})
+			})
+			//计算每个商品小计
+			$('.reduce').each(function(){
+				if($(this).next(".goods_num").val() == 1){
+					$(this).attr("disabled","disabled");
+				}
+			})
+			$('.add').click(function(){
+				var goods_num = parseInt($(this).prev(".goods_num").val()) + 1;
+				var goods_price = $(this).parents('.cart_list').find('.price').html().substring(1);
+				//console.log(goods_price);
+				$(this).prev(".goods_num").val(goods_num);
+				var sum_price = goods_num*parseFloat(goods_price);
+				$(this).parents('.cart_list').find('.sum_price').html("￥"+sum_price.toFixed(2))
+				if($(this).prev(".goods_num").val()>1){
+					$(this).parents('.cart_list').find('.reduce').removeAttr('disabled');
+				}
+				totalMoney();
+			})
+			$('.reduce').click(function(){
+				var goods_num = parseInt($(this).next(".goods_num").val()) - 1;
+				$(this).next(".goods_num").val(goods_num);
+				var goods_price = $(this).parents('.cart_list').find('.price').html().substring(1);
+				var sum_price = goods_num*parseFloat(goods_price);
+				$(this).parents('.cart_list').find('.sum_price').html("￥"+sum_price.toFixed(2))
+				if($(this).next(".goods_num").val()==1){
+					$(this).attr("disabled","disabled");
+				}
+				totalMoney();
+			})
+			function totalMoney(){
+				var totalNum = 0;
+				var totalPrice = 0;
+				$('.goods_check').each(function(){
+					if($(this).is(":checked")){
+						var dTotalNum = parseInt($(this).parents('.cart_list').find(".goods_num").val());
+						var dTotalPrice = parseFloat($(this).parents('.cart_list').find('.sum_price').html().substring(1));
+						totalNum += dTotalNum;
+						totalPrice += dTotalPrice;
+					}
+				})
+				$('.total_price').find("span").html("￥"+totalPrice.toFixed(2));
+				$('.total_num').find("span").html(totalNum);
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+/* Exchange rates */
+#rates div {
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+}
+
+#rates {
+	padding: 50px 100px 50px 100px;
+}
+
+#reload {
+	padding: 0 100px 0 100px;
+}
+
+#rates,
+#reload {
+	text-align: left;
+}
+
+.AU {
+	background-image: url('../img/au.png');
+}
+
+.UK {
+	background-image: url('../img/gb.png');
+}
+
+.US {
+	background-image: url('../img/us.png');
+}

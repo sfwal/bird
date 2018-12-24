@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<style type="text/css">
+		/*.btn{height: 300px; width: 400px; border: 1px solid #f00;}
+		.btn p{height: 200px;width: 100%; border: 1px solid #00f;}*/
+		input:focus{outline: none;}
+	</style>
+</head>
+<body>
+	<div class="btn">
+		<p>
+			点击事件
+		</p>
+		<a></a>
+		<a></a>
+
+		<!-- <input type="text" name="" /><span style="color:#f00;font-size: 12px;padding-left: 10px;"></span> -->
+	</div>
+	<form action="http://www.baidu.com" method="get" id="form">
+		<input type="text" name="" /><span style="color:#f00;font-size: 12px;padding-left: 10px;"></span>
+		<input type="submit" value="提交" />
+	</form>
+
+	<script type="text/javascript">
+		$(function(){
+			var flag = false;
+			// $('.btn').dblclick(function(){
+			// 	alert('...');
+			// })
+			// this
+			// $(".btn").mousedown(function(e){
+			// 	$(this).find('a').html(e.type);
+			// })
+			// $(".btn").mouseup(function(e){
+			// 	$(this).find('a').html(e.type);
+			// })
+			// $(".btn").mousemove(function(e){
+			// 	//$(this).find('a').html(e.type);
+			// 	$(this).find('a').html("鼠标当前X坐标" + e.pageX)
+			// })
+			// $(".btn").mouseover(function(e){
+			// 	//$(this).find('a').html(e.type);
+			// 	$(this).find('a').html("鼠标" + e.type)
+			// })
+			var i = 0;
+			var j = 0;
+			// $('.btn p').mouseover(function(){
+			// 	$('.btn a:first').html("mouseover事件触发次数"+(++i))
+			// })
+			// $('.btn').mouseover(function(){
+			// 	$('.btn a:last').html("mouseover事件触发次数"+(++j))
+			// })
+			// $('.btn p').mouseenter(function(){
+			// 	$('.btn a:first').html("mouseenter事件触发次数"+(++i))
+			// })
+			// $('.btn').mouseenter(function(){
+			// 	$('.btn a:last').html("mouseenter事件触发次数"+(++j))
+			// })
+			// 
+			// $(".btn").hover(function(e){
+			// 	$('.btn a:first').html(e.type);
+			// },function(e){
+			// 	$('.btn a:last').html(e.type);
+			// })
+			// 
+			// $('input').focus(function(){
+			// 	$(this).css("border","1px solid #f00");
+			// })
+			$('input').blur(function(){
+				var length = $(this).val().length;
+				if(length<6){
+					$(this).next('span').html('密码最少是6位数');
+					flag = false;
+				}else{
+					flag = true;
+				}
+			})
+			// 
+			// $('input').change(function(){
+			// 	$(this).next('span').html($(this).val());
+			// })
+
+			$("input[type='submit']").click(function(e){
+				if(!flag){
+					return false;
+				}else{
+					$('#form').submit();
+				}
+			})
+
+		})
+	</script>
+</body>
+</html>

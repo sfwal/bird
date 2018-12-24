@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{padding: 0;margin: 0;list-style: none;}
+		a{text-decoration: none;}
+		.clearfix:after{content: "";clear: both;display: block;}
+		.nav{width: 1000px; background: #ccc;margin: 300px auto 0;}
+		.nav li{float: left;width: 120px;text-align: center;line-height: 40px;font-size: 15px;border-right:1px solid #fff; position: relative;z-index: 99;}
+		.nav li a{color: #333;}
+		.nav li ul{position: absolute;background: #ddd;left: 0;bottom: -200px;opacity: 0;z-index: 2;}
+		.nav li ul li{float: none;border-right: 0;border-bottom: 1px solid #fff;}
+		.banner{width: 1000px;height: 300px;background: #f00; margin: 0 auto;position: relative;z-index: 99;}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<ul class="clearfix">
+			<li><a href="##">网站首页</a></li>
+			<li><a href="##">关于我们</a>
+				<ul>
+					<li><a href="##">公司简介</a></li>
+					<li><a href="##">公司领导</a></li>
+					<li><a href="##">团队成员</a></li>
+					<li><a href="##">公司活动</a></li>
+				</ul>
+			</li>
+			<li><a href="##">产品中心</a>
+				<ul>
+					<li><a href="##">公司简介</a></li>
+					<li><a href="##">公司领导</a></li>
+					<li><a href="##">团队成员</a></li>
+					<li><a href="##">公司活动</a></li>
+				</ul>
+			</li>
+			<li><a href="##">新闻中心</a></li>
+			<li><a href="##">公司荣誉</a></li>
+			<li><a href="##">领导致辞</a></li>
+			<li><a href="##">联系我们</a></li>
+
+		</ul>
+	</div>
+	<div class="banner"></div>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.nav>ul>li').hover(function(){
+				//$(this)
+				//$('.nav .aaa').stop().slideDown();
+				//$('.nav .aaa').eq($(this).index()).slideDown();
+				//$(this).children("ul").stop().slideToggle();
+				$(this).children("ul").animate({bottom:"40px",opacity:"1"},1000);
+			})
+		})
+	</script>
+</body>
+</html>
