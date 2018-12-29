@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- 强制IE浏览器采用最新的edge引擎解析，chrome采用最新版本 -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<!-- 双模式浏览器优先使用 webkit -->
+		<meta name="renderer" content="webkit">
+		<!-- 移动端视窗设置 -->
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/> -->
+		<!-- title 标题 -->
+		<title>日期校验</title>
+		<!-- 描述 -->
+		<meta name="description" content="你的描述内容，一段完整的描述，150字以内">
+		<!-- 关键字 -->
+		<meta name="keywords" content="多个关键词用英文,号分割">
+	</head>
+
+	<body>
+		<input type="text" id="date" />
+		<input type="button" value="校验" id="btn" />
+		<script type="text/javascript">
+			document.getElementById("btn").onclick = function() {
+				//验证一年的12个月，正确格式为："01"～"09"和"10"～"12"
+				var reg = /^(0?[1-9]|1[0-2])$/;
+				//验证一个月的31天，正确格式为："01"～"09"、"10"～"29"和“30”~“31”
+				var reg = /^((0?[1-9])|((1|2)[0-9])|30|31)$/;
+				//验证日期格式，正确格式为：2017-01-09
+				var reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+				if(reg.test(document.getElementById("date").value)) {
+					alert("验证成功");
+				} else {
+					alert("验证失败");
+				}
+			}
+		</script>
+	</body>
+
+</html>
